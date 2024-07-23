@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-
 """
 Main file
 """
 
-Server = __import__('check-tkings').Server
+Server = __import__('1-simple_pagination').Server
 
 server = Server()
 
