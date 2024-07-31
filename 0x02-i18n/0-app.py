@@ -15,4 +15,4 @@ def index():
     Returns:
         str: The rendered HTML content of the index.html template.
     """
-    return render_template('index.html')
+    return render_template('0-index.html')
