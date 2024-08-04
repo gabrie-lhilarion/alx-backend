@@ -8,6 +8,7 @@ from flask_babel import Babel
 
 app = Flask(__name__)
 
+
 class Config:
     """
     Configuration class for setting available languages and default settings.
@@ -16,9 +17,11 @@ class Config:
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
+
 app.config.from_object(Config)
 
 babel = Babel(app)
+
 
 @app.route('/')
 def index():
@@ -29,6 +32,7 @@ def index():
         str: The rendered HTML content of the index.html template.
     """
     return render_template('1-index.html')
+
 
 if __name__ == '__main__':
     """
