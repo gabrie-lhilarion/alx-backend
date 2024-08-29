@@ -1,79 +1,47 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
-Define island_perimeter function that finds the perimeter
-of an island in a body of water
+This module provides a function to calculate the perimeter of an island
+represented in a grid.
+
+The grid is a list of lists of integers where:
+- 0 represents water
+- 1 represents land
+
+Each cell is square with a side length of 1, and cells are connected
+horizontally or vertically (not diagonally). The grid is completely
+surrounded by water, contains only one island, and has no lakes (water
+inside that isn't connected to the water surrounding the island).
 """
 
-bound_4 = set()
-bound_3 = set()
-bound_2 = set()
-bound_1 = set()
+from typing import List
 
 
-def boundary(grid, i, j):
-    """Find cells with either 4, 3, 2 or 1 exposed boundary and add them to
-       appropriate set
-       Args:
-           grid (list): 2d list
-           i (int): row number
-           j (int): column number
+def island_perimeter(grid: List[List[int]]) -> int:
     """
-    boundaries = 0
-    try:
-        if i == 0:
-            boundaries += 1
-        elif grid[i-1][j] == 0:
-            boundaries += 1
-    except:
-        boundaries += 1
-    try:
-        if grid[i+1][j] == 0:
-            boundaries += 1
-    except:
-        boundaries += 1
-    try:
-        if grid[i][j+1] == 0:
-            boundaries += 1
-    except:
-        boundaries += 1
-    try:
-        if j == 0:
-            boundaries += 1
-        elif grid[i][j-1] == 0:
-            boundaries += 1
-    except:
-        boundaries += 1
+    Calculate the perimeter of the island in the given grid.
 
-    if boundaries == 1:
-        bound_1.add((i, j))
-    elif boundaries == 2:
-        bound_2.add((i, j))
-    elif boundaries == 3:
-        bound_3.add((i, j))
-    elif boundaries == 4:
-        bound_4.add((i, j))
-
-
-def island_perimeter(grid):
+    :param grid: List of list of integers where 0 represents
+    water and 1 represents land.
+    :return: Perimeter of the island.
     """
-    Calculate and return perimeter of island in the grid
-    Grid is a rectangular grid where 0s represent water and 1s represent land
-    Each cell is a square with a side length of 1
-    There is only one island
-    Args:
-        grid [list] : 2d list of ints either 0 or 1
-    Return:
-       perimeter of island
-    """
-    if grid == []:
-        return 0
-    l = len(grid)
-    w = len(grid[0])
-    for i in range(l):
-        for j in range(w):
+    perimeter = 0
+    rows = len(grid)
+    cols = len(grid[0]) if rows > 0 else 0
+
+    for i in range(rows):
+        for j in range(cols):
             if grid[i][j] == 1:
-                boundary(grid, i, j)
-                if len(bound_4) != 0:
-                    return 4
-    perimeter = (len(bound_3) * 3) + (len(bound_2) * 2) + (len(bound_1))
+                # Each land cell starts with 4 sides of perimeter
+                perimeter += 4
+
+                # If there's land above, subtract
+                # 2 from the perimeter (shared side)
+                if i > 0 and grid[i-1][j] == 1:
+                    perimeter -= 2
+
+                # If there's land to the left,
+                # subtract 2 from the perimeter (shared side)
+                if j > 0 and grid[i][j-1] == 1:
+                    perimeter -= 2
+
     return perimeter
