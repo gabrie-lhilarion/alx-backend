@@ -13,10 +13,8 @@ surrounded by water, contains only one island, and has no lakes (water
 inside that isn't connected to the water surrounding the island).
 """
 
-from typing import List
 
-
-def island_perimeter(grid: List[List[int]]) -> int:
+def island_perimeter(grid):
     """
     Calculate the perimeter of the island in the given grid.
 
@@ -31,7 +29,8 @@ def island_perimeter(grid: List[List[int]]) -> int:
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == 1:
-                # Each land cell starts with 4 sides of perimeter
+                # Each land cell starts with
+                # 4 sides of perimeter
                 perimeter += 4
 
                 # If there's land above, subtract
@@ -39,8 +38,8 @@ def island_perimeter(grid: List[List[int]]) -> int:
                 if i > 0 and grid[i-1][j] == 1:
                     perimeter -= 2
 
-                # If there's land to the left,
-                # subtract 2 from the perimeter (shared side)
+                # If there's land to the left, subtract
+                # 2 from the perimeter (shared side)
                 if j > 0 and grid[i][j-1] == 1:
                     perimeter -= 2
 
