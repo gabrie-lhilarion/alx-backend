@@ -29,18 +29,9 @@ def island_perimeter(grid):
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == 1:
-                # Each land cell starts with
-                # 4 sides of perimeter
                 perimeter += 4
-
-                # If there's land above, subtract
-                # 2 from the perimeter (shared side)
                 if i > 0 and grid[i-1][j] == 1:
                     perimeter -= 2
-
-                # If there's land to the left, subtract
-                # 2 from the perimeter (shared side)
                 if j > 0 and grid[i][j-1] == 1:
                     perimeter -= 2
-
     return perimeter
